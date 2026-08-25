@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Night of the Ninja</title>
+<meta name="description" content="A ninja platformer. Originally written in Khan Academy ProcessingJS, 2018.">
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    background: #12100e;
+    color: #d9c4a3;
+    font-family: "Trebuchet MS", Verdana, sans-serif;
+    overflow: hidden;
+  }
+  #wrap {
+    height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 10px;
+  }
+  #stage {
+    position: relative;
+    width: min(96vw, 96vh, 600px);
+    aspect-ratio: 1 / 1;
+    box-shadow: 0 10px 40px rgba(0,0,0,.7);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  canvas {
+    display: block;
+    width: 100%; height: 100%;
+    image-rendering: auto;
+    touch-action: none;
+    outline: none;
+  }
+  #boot {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 14px;
+    background: #000; color: #e8e8e8;
+    font-size: 15px; letter-spacing: .12em; text-transform: uppercase;
+    transition: opacity .4s ease;
+  }
+  #boot.gone { opacity: 0; pointer-events: none; }
+  #err {
+    display: none;
+    max-width: min(96vw, 600px);
+    background: #2a1414; border: 1px solid #6b2b2b;
+    color: #ffbcbc; padding: 12px 14px; border-radius: 6px;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 12px; white-space: pre-wrap; line-height: 1.45;
+  }
+  #hint { font-size: 12px; opacity: .5; letter-spacing: .06em; }
+  @media (max-height: 560px) { #hint { display: none; } }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div id="stage">
+    <canvas id="c" width="600" height="600" tabindex="0"></canvas>
+    <div id="boot">Loading</div>
+  </div>
+  <div id="hint">WASD / arrows to move &nbsp;·&nbsp; click to throw &nbsp;·&nbsp; space to dash &nbsp;·&nbsp; E for stats</div>
+  <pre id="err"></pre>
+</div>
+
+<script src="ka.js"></script>
+<script src="runtime.js"></script>
+<script>
+  // Surface errors on the page instead of only in the console, so a failure
+  // on someone else's machine is diagnosable without opening devtools.
+  (function () {
+    var box = document.getElementById("err");
+    function show(msg) {
+      box.style.display = "block";
+      box.textContent = String(msg);
+    }
+    window.addEventListener("error", function (e) {
+      show((e.message || "Error") + "\n" + (e.filename || "") + ":" + (e.lineno || ""));
+    });
+    window.KAProcessing.onError = function (err) {
+      show((err && err.stack) ? err.stack : String(err));
+    };
+  })();
+
+  // MUST run before game.js. A Khan Academy program executes statements at
+  // the top level -- size(), smooth(), frameRate(), textFont() -- so every
+  // Processing function has to exist on window before the game script is
+  // parsed. Attaching afterwards throws "size is not defined".
+  window.KAProcessing.attach(document.getElementById("c"));
+</script>
+<script src="game.js"></script>
+<script>
+  (function () {
+    var canvas = document.getElementById("c");
+    var P = window.KAProcessing;
+    P.start();
+
+    // The sketch paints its own loading screen; drop the placeholder once
+    // the first frame has actually landed.
+    requestAnimationFrame(function once() {
+      if (window.frameCount > 0) {
+        document.getElementById("boot").classList.add("gone");
+      } else {
+        requestAnimationFrame(once);
+      }
+    });
+
+    canvas.focus();
+    canvas.addEventListener("mousedown", function () { canvas.focus(); });
+  })();
+</script>
+</body>
+</html>

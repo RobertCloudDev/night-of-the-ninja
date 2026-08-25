@@ -1,0 +1,14 @@
+{
+  "name": "night-of-the-ninja",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Browser port of the 2018 Khan Academy ProcessingJS game.",
+  "scripts": {
+    "convert": "node tools/convert.js",
+    "verify": "node tools/run-verify.js",
+    "serve": "python3 -m http.server 8000"
+  },
+  "devDependencies": {
+    "@napi-rs/canvas": "^0.1.0"
+  }
+}
