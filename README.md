@@ -14,19 +14,13 @@ browser on a plain HTML5 canvas.
 The game code is the 2018 original, byte for byte. What was added is the
 environment around it: `ka.js` reimplements the Khan Academy ProcessingJS
 dialect against canvas 2D, and `tools/convert.js` applies three documented
-edits to strip Khan Academy's own scaffolding. No libraries, no build step.
+edits to strip Khan Academy's own scaffolding.
 
 ---
 
 ## Play
 
-Open `index.html` in a browser. That's it — there is nothing to compile.
-
-If your browser blocks local module loading, serve the folder:
-
-```bash
-python -m http.server 8000     # then open http://localhost:8000
-```
+[Play Here!](https://robertbrowndev-cloud.github.io/night-of-the-ninja/)
 
 ---
 
@@ -57,40 +51,6 @@ turns an angry monster friendly.
 | `tools/convert.js` | Applies the three documented edits; refuses to write on any mismatch |
 | `tools/harness.js` | Runs the shim headlessly for testing |
 | `tools/verify-art.js` | Artwork transcribed from the original, used to verify the shim |
-
-`PORTING.md` explains why this targets a custom shim rather than real
-Processing.js, which ProcessingJS semantics had to be reproduced, and what
-the three edits are.
-
----
-
-## Rebuilding game.js
-
-`game.js` is generated. To regenerate it from the original Khan Academy
-source:
-
-```bash
-node tools/convert.js path/to/khan-source.js
-```
-
-The converter requires each edit to match exactly once and parses the result
-before writing, so it fails loudly rather than producing a subtly broken
-file.
-
----
-
-## Deploying to GitHub Pages
-
-This is a static site, so there is no build to configure. Either route
-works:
-
-**Simplest** — repo → **Settings** → **Pages** → **Source: Deploy from a
-branch** → `main` / `(root)`. Done.
-
-**Or via Actions** — set **Source** to **GitHub Actions** and the included
-`.github/workflows/deploy.yml` will publish on every push to `main`.
-
-The site lands at `https://<username>.github.io/<repo>/`.
 
 ---
 
