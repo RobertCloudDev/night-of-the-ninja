@@ -2,10 +2,16 @@
 
 ![Night of the Ninja](docs/screenshot.png)
 
+
 A ninja platformer across thirty levels of forest, cave and castle. Dash
 through walls, throw shuriken, unlock doors, feed the sad monsters, and try
 not to fall off anything. Twenty-four achievements, a shop, and a save code
 you can print out and paste back in.
+
+|  |  |  |
+| :---: | :---: | :---: |
+| ![Night of the Ninja](docs/Screenshot_in_game.png) | ![Night of the Ninja](docs/Screenshot_menu.png) | ![Night of the Ninja](docs/Screenshot_in_game2.png) 
+
 
 Originally written in Khan Academy ProcessingJS in 2018 by **CoC's
 Firefists** — Corin Fist and Link. This version runs the same program in a
