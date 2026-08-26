@@ -26,7 +26,7 @@ edits to strip Khan Academy's own scaffolding.
 
 ## Play
 
-[Play Here!](https://robertbrowndev-cloud.github.io/night-of-the-ninja/)
+[Play Here!](https://RobertCloudDev-cloud.github.io/night-of-the-ninja/)
 
 ---
 
